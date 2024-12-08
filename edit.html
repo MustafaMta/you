@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Prices</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .menu-section {
+            margin: 20px auto;
+            width: 60%;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: 100px;
+            padding: 5px;
+            text-align: right;
+        }
+        button {
+            background-color: #ffc107;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #e0a800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Prices</h1>
+    <div class="menu-section">
+        <h2>القهوة والحليب</h2>
+        <div class="menu-item"><span>اسبريسو (ساخن)</span><input type="text" value="2000"></div>
+        <div class="menu-item"><span>اسبريسو (بارد)</span><input type="text" value="2000"></div>
+        <div class="menu-item"><span>قهوة تركية</span><input type="text" value="3000"></div>
+        <div class="menu-item"><span>لاتيه</span><input type="text" value="3500"></div>
+        <div class="menu-item"><span>كابتشينو</span><input type="text" value="4000"></div>
+        <div class="menu-item"><span>موكا</span><input type="text" value="4000"></div>
+        <div class="menu-item"><span>كورتادو</span><input type="text" value="3500"></div>
+    </div>
+
+    <div class="menu-section">
+        <h2>آيس كريم</h2>
+        <div class="menu-item"><span>وسط</span><input type="text" value="3000"></div>
+        <div class="menu-item"><span>كبير</span><input type="text" value="4000"></div>
+        <div class="menu-item"><span>حجم عائلي</span><input type="text" value="7000"></div>
+    </div>
+
+    <div class="menu-section">
+        <h2>كوكتيل</h2>
+        <div class="menu-item"><span>رمان وبرتقال</span><input type="text" value="4000"></div>
+        <div class="menu-item"><span>برتقال وليمون</span><input type="text" value="4000"></div>
+        <div class="menu-item"><span>فراولة ومانجو</span><input type="text" value="4500"></div>
+        <div class="menu-item"><span>تفاح وليمون</span><input type="text" value="4000"></div>
+    </div>
+
+    <div class="menu-section">
+        <h2>مشروب طاقة</h2>
+        <div class="menu-item"><span>ريد بول</span><input type="text" value="4500"></div>
+        <div class="menu-item"><span>بايسن</span><input type="text" value="3500"></div>
+    </div>
+
+    <div class="menu-section">
+        <h2>شاي</h2>
+        <div class="menu-item"><span>شاي عربي</span><input type="text" value="1000"></div>
+        <div class="menu-item"><span>شاي سيلاني</span><input type="text" value="1000"></div>
+        <div class="menu-item"><span>شاي نكهات</span><input type="text" value="1000"></div>
+    </div>
+
+    <button onclick="savePrices()">Save Changes</button>
+
+    <script>
+        function savePrices() {
+            const items = document.querySelectorAll('.menu-item');
+            const prices = [];
+            items.forEach(item => {
+                const name = item.querySelector('span').innerText;
+                const price = item.querySelector('input').value;
+                prices.push({ name, price });
+            });
+            localStorage.setItem('menuPrices', JSON.stringify(prices));
+            alert('Prices saved!');
+        }
+
+        window.onload = function() {
+            const savedPrices = JSON.parse(localStorage.getItem('menuPrices') || '[]');
+            savedPrices.forEach(savedItem => {
+                const items = document.querySelectorAll('.menu-item');
+                items.forEach(item => {
